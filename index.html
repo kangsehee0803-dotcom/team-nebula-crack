@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EREBOS: Team NEBULA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              mint: '#00f2ff', // Electric Cyan
+              darkteal: '#1e0a3d', // Deep Space Violet
+              deepbase: '#020205', // True Space Black
+              nebula: '#7000ff', // Vibrant Purple
+              accent: '#ff00e5', // Neon Magenta
+              offwhite: '#f8fafc',
+              alert: '#ff003c', // Hacked Red
+            },
+            fontFamily: {
+              mono: ['JetBrains Mono', 'monospace'],
+              sans: ['Noto Sans KR', 'sans-serif'],
+            },
+            animation: {
+              'glitch-slow': 'glitch 4s infinite linear alternate-reverse',
+              'glitch-fast': 'glitch 0.5s infinite linear alternate-reverse',
+              'scanline-fast': 'scanline 4s linear infinite',
+              'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #020205;
+        color: #00f2ff;
+        overflow-x: hidden;
+        cursor: none; /* 기본 커서를 숨깁니다 */
+      }
+      
+      /* 모든 클릭 가능 요소에 커서 포인터 유지 (하지만 커스텀 커서가 시각적 대체) */
+      a, button, [role="button"], input, select, textarea {
+        cursor: none;
+      }
+
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .hologram-glow {
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+      }
+      .hologram-text {
+        text-shadow: 0 0 8px rgba(0, 242, 255, 0.6), 0 0 15px rgba(112, 0, 255, 0.3);
+      }
+      
+      @keyframes scanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+      .scanline {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 8px;
+        background: linear-gradient(to bottom, transparent, rgba(0, 242, 255, 0.15), transparent);
+        animation: scanline 6s linear infinite;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      /* CRACKED GLITCH EFFECT */
+      @keyframes glitch {
+        0% { clip: rect(44px, 9999px, 56px, 0); transform: skew(0.55deg); }
+        5% { clip: rect(65px, 9999px, 91px, 0); transform: skew(0.24deg); }
+        10% { clip: rect(13px, 9999px, 86px, 0); transform: skew(0.66deg); }
+        15% { clip: rect(82px, 9999px, 21px, 0); transform: skew(0.91deg); }
+        20% { clip: rect(11px, 9999px, 35px, 0); transform: skew(0.72deg); }
+        25% { clip: rect(98px, 9999px, 73px, 0); transform: skew(0.18deg); }
+        30% { clip: rect(31px, 9999px, 66px, 0); transform: skew(0.39deg); }
+        35% { clip: rect(48px, 9999px, 15px, 0); transform: skew(0.54deg); }
+        40% { clip: rect(7px, 9999px, 54px, 0); transform: skew(0.85deg); }
+        45% { clip: rect(61px, 9999px, 49px, 0); transform: skew(0.42deg); }
+        50% { clip: rect(23px, 9999px, 88px, 0); transform: skew(0.12deg); }
+        55% { clip: rect(77px, 9999px, 12px, 0); transform: skew(0.67deg); }
+        60% { clip: rect(39px, 9999px, 63px, 0); transform: skew(0.28deg); }
+        65% { clip: rect(55px, 9999px, 29px, 0); transform: skew(0.94deg); }
+        70% { clip: rect(18px, 9999px, 93px, 0); transform: skew(0.51deg); }
+        75% { clip: rect(85px, 9999px, 41px, 0); transform: skew(0.36deg); }
+        80% { clip: rect(2px, 9999px, 78px, 0); transform: skew(0.79deg); }
+        85% { clip: rect(52px, 9999px, 17px, 0); transform: skew(0.22deg); }
+        90% { clip: rect(94px, 9999px, 68px, 0); transform: skew(0.48deg); }
+        95% { clip: rect(34px, 9999px, 52px, 0); transform: skew(0.63deg); }
+        100% { clip: rect(69px, 9999px, 8px, 0); transform: skew(0.15deg); }
+      }
+
+      .glitch-text::before, .glitch-text::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: transparent;
+      }
+      .glitch-text::before {
+        left: 2px;
+        text-shadow: -2px 0 #ff00e5;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch 5s infinite linear alternate-reverse;
+      }
+      .glitch-text::after {
+        left: -2px;
+        text-shadow: -2px 0 #00f2ff, 2px 2px #ff00e5;
+        animation: glitch 1s infinite linear alternate-reverse;
+      }
+
+      .noise-bg {
+        position: fixed; inset: 0;
+        background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        opacity: 0.08; pointer-events: none; z-index: -1;
+      }
+
+      .cracked-overlay {
+        position: fixed; inset: 0;
+        background: radial-gradient(circle at center, transparent 0%, rgba(2, 2, 5, 0.4) 100%);
+        pointer-events: none; z-index: 50;
+      }
+
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: #020205; }
+      ::-webkit-scrollbar-thumb { background: #7000ff; border-radius: 0px; }
+      ::-webkit-scrollbar-thumb:hover { background: #00f2ff; }
+
+      .tactical-border {
+        border: 1px solid rgba(0, 242, 255, 0.2);
+        position: relative;
+      }
+      .tactical-border::before {
+        content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px;
+        border-top: 2px solid #00f2ff; border-left: 2px solid #00f2ff;
+      }
+      .tactical-border::after {
+        content: ''; position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px;
+        border-bottom: 2px solid #00f2ff; border-right: 2px solid #00f2ff;
+      }
+
+      /* 커스텀 커서 관련 스타일 */
+      .custom-cursor-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+      }
+    }
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div class="noise-bg"></div>
+    <div class="cracked-overlay"></div>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
