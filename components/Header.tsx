@@ -10,7 +10,7 @@ const Header: React.FC<HeaderProps> = ({ isCinematic, setIsCinematic }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   
-  const MUSIC_FEED_URL = "https://suno.com/s/zGeL3xXjwikEoJBu";
+  const MUSIC_FEED_URL = "https://youtu.be/ii_pKwaoCcs?si=gniZr9pvjOD04nAx";
   const audioSourceLabel = "NEBULA_TEAM_MUSIC";
 
   const navItems = [
